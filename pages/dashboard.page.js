@@ -7,6 +7,8 @@ export class DashboardPage {
 
         this.dashboardTitle = page.getByRole('heading', { name: /dashboard/i })
 
+        this.userDropdown = page.locator('.oxd-userdropdown-name')
+
         this.sideMenu = page.locator('.oxd-sidepanel-body')
 
         this.pimMenuItem = this.sideMenu.getByRole('link', { name: /pim/i })
