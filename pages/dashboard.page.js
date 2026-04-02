@@ -35,14 +35,3 @@ export class DashboardPage {
         await expect(this.table).toBeVisible()
     }
 } 
-
-echo "# aula02_04" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/rannyer/aula02_04.git
-git push -u origin main
-git add .
-git commit -m "add tudo""
-git push
