@@ -63,5 +63,3 @@ test.describe('OrangeHRM - exemplos para estudo', () => {
     })
 })
 
-git add . 
-git commit -m "feat: criar testes de login e dashboard para o OrangeHRM"
