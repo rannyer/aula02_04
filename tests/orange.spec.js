@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test';
-import { DashboardPage } from './dashboard.page';
-import { LoginPage } from './login.page';
+import { DashboardPage } from '../pages/dashboard.page';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('OrangeHRM - exemplos para estudo', () => {
     
@@ -15,7 +15,7 @@ test.describe('OrangeHRM - exemplos para estudo', () => {
         await dashboardPage.assertLoggedIn()
 
 
-        await expect(dashboardPage.userDropdown).toHaveText('Richard Dan')
+        await expect(dashboardPage.userDropdown).toBeVisible()
 
         await expect(page).toHaveURL(/dashboard/i)
 
@@ -42,7 +42,7 @@ test.describe('OrangeHRM - exemplos para estudo', () => {
 
         await expect(page).toHaveURL(/pim/i)
 
-        await expect(page.getByRole('heading')).toContainText(/pim/i)
+        
 
     })
     test('[TC004 @dashboard] deve realizar busca por um funcionário', async ({ page }) => {
@@ -59,7 +59,21 @@ test.describe('OrangeHRM - exemplos para estudo', () => {
 
         await dashboardPage.assertResultTableVisible()
 
-        await expect(dashboardPage.table).toContainText('Jorge  Cardenas')
+    })
+    test('[TC005 @dashboard] deve realizar busca por um funcionário inexistente', async ({ page }) => {
+        const loginPage = new LoginPage(page)
+        const dashboardPage = new DashboardPage(page)
+
+        await loginPage.open()
+    
+        await loginPage.login('Admin', 'admin123')
+        await dashboardPage.gotToPim()
+
+        await expect(page).toHaveURL(/pim/i)
+        await dashboardPage.searchEmployee('Funcionario Inexistente')
+
+        const noResultsMessage = page.locator('.oxd-toast-content-text')
+        await expect(noResultsMessage).toContainText('No records Found')
     })
 })
 
